@@ -40,7 +40,8 @@ function draw() {
   } else {
     fill(255);
     textSize(32);
-    text("Game Over! Score: " + score, 50, height / 2);
+    text("Game Over! Score: " + score + "\n Tap to Start Again", 50, height / 2);
+    noLoop();
   }
 }
 
@@ -48,10 +49,28 @@ function keyPressed() {
   if (key === ' ') {
     bird.up();
   }
+
+  if (gameOver) {
+    gameOver = false;
+    score = 0;
+    pipes = [];
+    bird = new Bird();
+    pipes.push(new Pipe());
+    loop();
+  }
 }
 
 function mouseClicked() {
   bird.up();
+
+  if (gameOver) {
+    gameOver = false;
+    score = 0;
+    pipes = [];
+    bird = new Bird();
+    pipes.push(new Pipe());
+    loop();
+  }
 }
 
 function Bird() {
@@ -127,6 +146,5 @@ function Pipe() {
 
 function endGame() {
   gameOver = true;
-  noLoop();
 }
 
